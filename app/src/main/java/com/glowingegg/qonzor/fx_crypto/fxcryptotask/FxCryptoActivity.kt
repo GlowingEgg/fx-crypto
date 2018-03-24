@@ -11,6 +11,8 @@ import android.os.Bundle
 
 open class FxCryptoActivity : AppCompatActivity(), FxCryptoContract.ViewPort {
 
+    /* Android framework methods */
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

@@ -12,9 +12,7 @@ import android.view.ViewGroup
  * Each will implement the View role of the contracts
  */
 
-open class FxCryptoFragment : Fragment(), FxCryptoContract.View {
-
-    lateinit var mPresenter : FxCryptoContract.Presenter
+abstract class FxCryptoFragment : Fragment(), FxCryptoContract.View {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -23,10 +21,6 @@ open class FxCryptoFragment : Fragment(), FxCryptoContract.View {
 
     }
 
-    override fun setPresenter(presenter : FxCryptoContract.Presenter) {
-
-        mPresenter = presenter
-
-    }
+    abstract override fun setPresenter(presenter : FxCryptoContract.Presenter)
 
 }
