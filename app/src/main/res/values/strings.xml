@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">fx-crypto</string>
 
+    <!-- Strings for the API calls -->
+    <string name="http_scheme">https</string>
+    <string name="base_api_address">api.coinmarketcap.com</string>
+    <string name="api_version">v1</string>
+    <string name="ticker_path_segment">ticker</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

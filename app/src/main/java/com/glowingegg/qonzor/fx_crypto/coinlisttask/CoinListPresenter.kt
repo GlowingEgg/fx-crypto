@@ -2,12 +2,14 @@ package com.glowingegg.qonzor.fx_crypto.coinlisttask
 
 import com.glowingegg.qonzor.fx_crypto.coinlisttask.CoinListContract
 import com.glowingegg.qonzor.fx_crypto.models.Coin
+import com.glowingegg.qonzor.fx_crypto.tradesmen.Networker
 
 
 class CoinListPresenter(val mView : CoinListContract.View, val mViewPort : CoinListContract.ViewPort)
     : CoinListContract.Presenter {
 
-    val mCoins : ArrayList<Coin> = ArrayList()
+    private val mCoins : ArrayList<Coin> = ArrayList()
+    private val mNetworker = Networker(mViewPort.getContext())
 
     /** Presenter method implementations **/
 
@@ -22,7 +24,7 @@ class CoinListPresenter(val mView : CoinListContract.View, val mViewPort : CoinL
     // clean up
     override fun finish() {
 
-
+        mNetworker.dontCallBack()
 
     }
 
