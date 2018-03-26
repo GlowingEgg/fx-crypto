@@ -1,10 +1,12 @@
 package com.glowingegg.qonzor.fx_crypto.coinlisttask
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import com.glowingegg.qonzor.fx_crypto.R
 import com.glowingegg.qonzor.fx_crypto.fxcryptotask.FxCryptoActivity
 import com.glowingegg.qonzor.fx_crypto.models.Coin
-import timber.log.Timber
 
 /**
  * Activity for the screen displaying the list of Coins.
@@ -15,13 +17,19 @@ import timber.log.Timber
 
 class CoinListActivity : FxCryptoActivity(), CoinListContract.ViewPort {
 
-    /* Android framework methods */
     lateinit var mPresenter : CoinListContract.Presenter
+    lateinit var mView : CoinListContract.View
+
+    // views
+    var mMainRelativeLayout : RelativeLayout? = null
+    var mFragmentFrameLayout : FrameLayout? = null
+
+    /* Android framework methods */
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_heat_map)
+        setContentView(R.layout.activity_coin_list)
 
         setup()
 
@@ -31,26 +39,35 @@ class CoinListActivity : FxCryptoActivity(), CoinListContract.ViewPort {
 
     private fun setup() {
 
-        val coin = Coin.makeCoin()
-
-        Timber.d("whatup")
-
+        getViews()
         insertFragment()
         setupViewAndPresenter()
+
+    }
+
+    // grab all the Views for this Activity
+    private fun getViews() {
+
+        mMainRelativeLayout = findViewById(R.id.coin_list_activity_relativeLayout)
+        mFragmentFrameLayout = findViewById(R.id.coin_list_activity_frameLayout)
 
     }
 
     // put a CoinListFragment in the fragment frame
     private fun insertFragment() {
 
+        val fragment = CoinListFragment()
+        mView = fragment
 
+        supportFragmentManager.beginTransaction().add(R.id.coin_list_activity_frameLayout, fragment)
+                .commit()
 
     }
 
     // get the View and Presenter set up and bound
     private fun setupViewAndPresenter() {
 
-
+        mPresenter = CoinListPresenter(mView, this)
 
     }
 

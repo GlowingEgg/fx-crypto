@@ -19,6 +19,10 @@ class CoinListPresenter(val mView : CoinListContract.View, val mViewPort : CoinL
         // tell the View to bind to this Presenter
         mView.setPresenter(this)
 
+        fetchCoins()
+
+        mView.updateCoinList(mCoins)
+
     }
 
     // clean up
@@ -32,6 +36,18 @@ class CoinListPresenter(val mView : CoinListContract.View, val mViewPort : CoinL
     override fun onCoinClick(position : Int) {
 
         mViewPort.showCoinDetail(mCoins.get(position))
+
+    }
+
+    /** Private helper methods **/
+
+    private fun fetchCoins() {
+
+        mNetworker.getCoinList(onSuccess = {
+            mCoins.clear()
+            mCoins.addAll(it)}, onFailure = {
+            // display the appropriate failure message
+            })
 
     }
 

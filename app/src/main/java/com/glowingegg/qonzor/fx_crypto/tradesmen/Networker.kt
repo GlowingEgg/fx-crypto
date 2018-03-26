@@ -1,13 +1,14 @@
 package com.glowingegg.qonzor.fx_crypto.tradesmen
 
 import android.content.Context
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.glowingegg.qonzor.fx_crypto.R
 import com.glowingegg.qonzor.fx_crypto.models.Coin
 import com.google.gson.Gson
 import okhttp3.*
 import java.io.IOException
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 class Networker(val mContext : Context) {
 
@@ -26,7 +27,7 @@ class Networker(val mContext : Context) {
     }
 
     // tries to fetch a list of Coins, sends it back in onSuccess if successful
-    fun getCoinList(onSuccess: (ArrayList<Coin>) -> Unit, onFailure: (NetworkFailureType) -> Unit) {
+    fun getCoinList(onSuccess: (coins : ArrayList<Coin>) -> Unit, onFailure: (NetworkFailureType) -> Unit) {
 
         // build the url for the request
         val httpUrl = HttpUrl.Builder()
@@ -66,7 +67,8 @@ class Networker(val mContext : Context) {
 
                         val gson = Gson()
 
-                        
+                        val list = gson.fromJson(responseString, Array<Coin>::class.java)
+                        val coinArrayList : ArrayList<Coin> = list.toCollection(ArrayList<Coin>())
 
                         // make the list of Coins
                         val coins = ArrayList<Coin>()
